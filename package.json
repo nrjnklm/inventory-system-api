@@ -1,0 +1,18 @@
+{
+  "name": "express-simple-starter",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^4.21.2",
+    "mongoose": "^8.18.1"
+  },
+  "version": "1.0.0",
+  "description": "This live practical session introduces you to building a real-world backend. You'll learn to create API routes in Express that let users modify inventory data in a MongoDB database using Mongoose. You’ll also test your endpoints using an API client like Postman or Bruno.",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
