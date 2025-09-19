@@ -1,15 +1,30 @@
+require('dotenv').config();
 const express = require('express');
-const { resolve } = require('path');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const itemRouter = require('./router/routes');
 
 const app = express();
-const port = 3000;
+app.use(cors()); // optional but helpful
+app.use(express.json());
 
-app.use(express.static('static'));
+const PORT = process.env.PORT || 3000;
+const MONGO_URI = process.env.MONGO_URI;
 
-app.get('/', (req, res) => {
-  res.sendFile(resolve(__dirname, 'pages/index.html'));
-});
+if (!MONGO_URI) {
+  console.error('MONGO_URI is not set in .env');
+  process.exit(1);
+}
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+mongoose.connect(MONGO_URI)
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);
+  });
+
+app.use('/', itemRouter);
+
+app.get('/', (req, res) => res.send('Item API is running'));
+
+app.listen(PORT, () => console.log(`Server listening on http://localhost:${PORT}`));
